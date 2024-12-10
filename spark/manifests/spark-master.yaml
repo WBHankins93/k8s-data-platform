@@ -1,0 +1,25 @@
+# Save as spark/manifests/spark-master.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-master
+  labels:
+    app: spark
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spark
+      role: master
+  template:
+    metadata:
+      labels:
+        app: spark
+        role: master
+    spec:
+      containers:
+      - name: spark-master
+        image: spark-custom:latest
+        ports:
+        - containerPort: 7077 # Spark's default RPC port
+        - containerPort: 8080 # Spark's Web UI
